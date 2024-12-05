@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import Banner from "./Banner";
 import GameCard from "../../../pages/GameCard";
 import GraphComponent from "../../../pages/GraphComponent";
+import ColorCatcher from "../../../pages/ColorCatcher";
+import GamingGalaxy from "../../../pages/GamingGalaxy";
 
 const Home = () => {
   const [highestRatedGames, setHighestRatedGames] = useState([]);
   const [allGames, setAllGames] = useState([]);
-
-
 
   useEffect(() => {
     const fetchAllGames = async () => {
@@ -29,7 +29,9 @@ const Home = () => {
   useEffect(() => {
     const fetchHighestRatedGames = async () => {
       try {
-        const response = await fetch("http://localhost:5000/highest-rated-games");
+        const response = await fetch(
+          "http://localhost:5000/highest-rated-games"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch highest-rated games");
         }
@@ -64,13 +66,18 @@ const Home = () => {
       {/* Extra Section 1: Graph show all games */}
       <section className="py-16 px-4 bg-white">
         <h2 className="text-3xl font-bold text-center mb-12">
-        All Games Ratings Overview
+          All Games Ratings Overview
         </h2>
         <GraphComponent games={allGames} />
       </section>
+      {/* Extra Section 2: Interactive Gaming Galaxy */}
+      <GamingGalaxy></GamingGalaxy>
+      {/* Extra Section 3: Provide A Game */}
+      <div className="py-16 px-4 bg-black text-white">
+        <ColorCatcher></ColorCatcher>
+      </div>
     </div>
   );
 };
 
 export default Home;
-
