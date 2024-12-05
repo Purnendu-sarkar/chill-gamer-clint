@@ -10,12 +10,13 @@ import ReviewDetails from "../pages/ReviewDetails";
 import MyReviews from "../pages/MyReviews";
 import UpdateReview from "../pages/UpdateReview";
 import Watchlist from "../pages/Watchlist";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    errorElement: <p>Something went wrong!</p>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
