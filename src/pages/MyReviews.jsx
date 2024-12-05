@@ -27,7 +27,6 @@ const MyReviews = () => {
 
   const handleDelete = async (id) => {
     console.log("Paici", id)
-    // const confirm = toast.success("Are you sure you want to delete this review?");
     const confirm = window.confirm("Are you sure you want to delete this review?");
     if (!confirm) return;
 

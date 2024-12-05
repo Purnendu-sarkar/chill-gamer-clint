@@ -32,14 +32,49 @@ const ReviewDetails = () => {
     fetchReviewDetails();
   }, [id]);
 
-  const handleAddToWatchlist = async () => {
+//   const handleAddToWatchlist = async () => {
+//     if (!user) {
+//       navigate("/login");
+//       return;
+//     }
+
+//     try {
+//       // TODO: Implement watchlist functionality
+//       setIsInWatchlist(true);
+//       toast.success("Added to watchlist!");
+//     } catch (error) {
+//       toast.error("Failed to add to watchlist");
+//       console.error(error);
+//     }
+//   };
+const handleAddToWatchlist = async () => {
     if (!user) {
       navigate("/login");
       return;
     }
-
+  
+    const watchlistItem = {
+      reviewId: id,
+      userName: user.displayName,
+      userEmail: user.email,
+      coverImage: review.coverImage,
+      title: review.title,
+      genre: review.genre,
+      rating: review.rating,
+      description: review.description,
+    };
+  
     try {
-      // TODO: Implement watchlist functionality
+      const response = await fetch("http://localhost:5000/addToWatchlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(watchlistItem),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to add to watchlist");
+      }
       setIsInWatchlist(true);
       toast.success("Added to watchlist!");
     } catch (error) {
@@ -47,6 +82,7 @@ const ReviewDetails = () => {
       console.error(error);
     }
   };
+  
 
   if (loading) {
     return (
