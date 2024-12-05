@@ -27,6 +27,22 @@ const MyReviews = () => {
 
   const handleDelete = async (id) => {
     console.log("Paici", id)
+    // const confirm = toast.success("Are you sure you want to delete this review?");
+    const confirm = window.confirm("Are you sure you want to delete this review?");
+    if (!confirm) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/reviews/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete review");
+      }
+      toast.success("Review deleted successfully");
+      setReviews(reviews.filter((review) => review._id !== id));
+    } catch (error) {
+      toast.error("Failed to delete review");
+    }
   };
 
   return (
