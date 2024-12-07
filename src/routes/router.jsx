@@ -11,6 +11,7 @@ import MyReviews from "../pages/MyReviews";
 import UpdateReview from "../pages/UpdateReview";
 import Watchlist from "../pages/Watchlist";
 import ErrorPage from "../pages/ErrorPage";
+import ProtectedRoute from "../auth/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-         
       },
       {
         path: "/login",
@@ -33,7 +33,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-review",
-        element: <AddReview></AddReview>,
+        element: (
+          <ProtectedRoute>
+            <AddReview></AddReview>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/reviews",
@@ -60,16 +64,28 @@ const router = createBrowserRouter([
 
       {
         path: "/my-reviews",
-        element: <MyReviews></MyReviews>,
+        element: (
+          <ProtectedRoute>
+            <MyReviews></MyReviews>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/reviews/:id",
-        element: <UpdateReview></UpdateReview>,
+        element: (
+          <ProtectedRoute>
+            <UpdateReview></UpdateReview>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/watchlist",
-        element: <Watchlist></Watchlist>
-      }
+        element: (
+          <ProtectedRoute>
+            <Watchlist></Watchlist>
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
