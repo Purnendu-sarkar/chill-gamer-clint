@@ -10,6 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  // console.log(user)
 
   const handleLogout = async () => {
     try {

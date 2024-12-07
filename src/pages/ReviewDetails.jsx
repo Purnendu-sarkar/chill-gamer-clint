@@ -5,12 +5,14 @@ import { Star, Clock, GamepadIcon, Heart } from "lucide-react";
 import toast from "react-hot-toast";
 
 const ReviewDetails = () => {
+  
   const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [review, setReview] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isInWatchlist, setIsInWatchlist] = useState(false);
+  // console.log(review)
 
   useEffect(() => {
     const fetchReviewDetails = async () => {
@@ -21,6 +23,14 @@ const ReviewDetails = () => {
         }
         const data = await response.json();
         setReview(data);
+
+        if (user) {
+          const watchlistResponse = await fetch(
+            `http://localhost:5000/check-watchlist/${id}?email=${user.email}`
+          );
+          const watchlistData = await watchlistResponse.json();
+          setIsInWatchlist(watchlistData.exists);
+        }
       } catch (error) {
         console.error(error);
         toast.error("Review not found!");
@@ -30,29 +40,19 @@ const ReviewDetails = () => {
     };
 
     fetchReviewDetails();
-  }, [id]);
+  }, [id, user]);
 
-//   const handleAddToWatchlist = async () => {
-//     if (!user) {
-//       navigate("/login");
-//       return;
-//     }
-
-//     try {
-//       // TODO: Implement watchlist functionality
-//       setIsInWatchlist(true);
-//       toast.success("Added to watchlist!");
-//     } catch (error) {
-//       toast.error("Failed to add to watchlist");
-//       console.error(error);
-//     }
-//   };
-const handleAddToWatchlist = async () => {
+  const handleAddToWatchlist = async () => {
     if (!user) {
       navigate("/login");
       return;
     }
-  
+
+    if (isInWatchlist) {
+      toast.error("This review is already in your watchlist!");
+      return;
+    }
+
     const watchlistItem = {
       reviewId: id,
       userName: user.displayName,
@@ -63,7 +63,7 @@ const handleAddToWatchlist = async () => {
       rating: review.rating,
       description: review.description,
     };
-  
+
     try {
       const response = await fetch("http://localhost:5000/addToWatchlist", {
         method: "POST",
@@ -72,17 +72,23 @@ const handleAddToWatchlist = async () => {
         },
         body: JSON.stringify(watchlistItem),
       });
+
       if (!response.ok) {
         throw new Error("Failed to add to watchlist");
       }
-      setIsInWatchlist(true);
-      toast.success("Added to watchlist!");
+
+      const result = await response.json();
+      if (result.insertedId) {
+        setIsInWatchlist(true);
+        toast.success("Added to watchlist!");
+      } else {
+        toast.error("Failed to add to watchlist");
+      }
     } catch (error) {
       toast.error("Failed to add to watchlist");
       console.error(error);
     }
   };
-  
 
   if (loading) {
     return (
@@ -152,10 +158,12 @@ const handleAddToWatchlist = async () => {
             <div className="flex items-center space-x-3">
               <img
                 src={review.userPhotoURL}
+                // src={console.log(review.photoURL)}
                 alt={review.userName}
                 className="h-10 w-10 rounded-full"
               />
               <div>
+                
                 <p className="font-semibold">{review.userName}</p>
                 <p className="text-sm text-gray-500">{review.userEmail}</p>
               </div>

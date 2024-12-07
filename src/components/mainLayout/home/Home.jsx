@@ -5,6 +5,7 @@ import GraphComponent from "../../../pages/GraphComponent";
 import ColorCatcher from "../../../pages/ColorCatcher";
 import GamingGalaxy from "../../../pages/GamingGalaxy";
 import Footer from "./footer/Footer";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [highestRatedGames, setHighestRatedGames] = useState([]);
@@ -61,6 +62,14 @@ const Home = () => {
               <GameCard key={game._id} game={game} />
             ))}
           </div>
+          <div className="flex items-center justify-center mt-8">
+            <Link
+              to={"/reviews"}
+              className="inline-block bg-blue-500 text-white px-4 py-2 rounded-md shadow-md"
+            >
+              Explore Details
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -75,7 +84,9 @@ const Home = () => {
       <GamingGalaxy></GamingGalaxy>
       {/* Extra Section 3: Provide A Game */}
       <div className="py-16 px-4 bg-black text-white">
-        <h3 className="text-center text-3xl font-extrabold mb-5">Interactive Game Play</h3>
+        <h3 className="text-center text-3xl font-extrabold mb-5">
+          Interactive Game Play
+        </h3>
         <ColorCatcher></ColorCatcher>
       </div>
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
-// import { useAuth } from "../../contexts/AuthContext";
+
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -50,7 +50,7 @@ const RegisterForm = () => {
         formData.photoURL ||
           "https://api.dicebear.com/7.x/avataaars/svg?seed=" + formData.name
       );
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error(error);
     } finally {

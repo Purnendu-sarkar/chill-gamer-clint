@@ -54,6 +54,7 @@ const MyReviews = () => {
           <thead>
             <tr className="bg-gray-100">
               <th className="border p-2">Title</th>
+              <th className="border p-2">Genre</th>
               <th className="border p-2">Rating</th>
               <th className="border p-2">Actions</th>
             </tr>
@@ -62,8 +63,9 @@ const MyReviews = () => {
             {reviews.map((review) => (
               <tr key={review._id} className="border-t">
                 <td className="border p-2">{review.title}</td>
+                <td className="border p-2">{review.genre}</td>
                 <td className="border p-2">{review.rating}</td>
-                <td className="border p-2 space-x-2">
+                <td className="border p-2 space-x-5 items-center">
                   <button
                     onClick={() => navigate(`/reviews/${review._id}`)}
                     className="bg-blue-500 text-white px-4 py-1 rounded"

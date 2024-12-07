@@ -1,15 +1,15 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { 
-  createUserWithEmailAndPassword, 
+import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   updateProfile,
   GoogleAuthProvider,
-  signInWithPopup
-} from 'firebase/auth';
-import toast from 'react-hot-toast';
-import { auth } from '../firebase/firebase.config';
+  signInWithPopup,
+} from "firebase/auth";
+import toast from "react-hot-toast";
+import { auth } from "../firebase/firebase.config";
 
 const AuthContext = createContext();
 
@@ -21,9 +21,14 @@ export function AuthProvider({ children }) {
 
   const signup = async (email, password, displayName, photoURL) => {
     try {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       await updateProfile(result.user, { displayName, photoURL });
-      toast.success('Account created successfully!');
+      toast.success("Account created successfully!");
+      await signOut(auth);
       return result;
     } catch (error) {
       toast.error(error.message);
@@ -34,7 +39,7 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
-      toast.success('Logged in successfully!');
+      toast.success("Account created successfully!");
       return result;
     } catch (error) {
       toast.error(error.message);
@@ -46,7 +51,7 @@ export function AuthProvider({ children }) {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      toast.success('Logged in with Google successfully!');
+      toast.success("Logged in with Google successfully!");
       return result;
     } catch (error) {
       toast.error(error.message);
@@ -57,7 +62,7 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     try {
       await signOut(auth);
-      toast.success('Logged out successfully!');
+      toast.success("Logged out successfully!");
     } catch (error) {
       toast.error(error.message);
       throw error;
@@ -79,7 +84,7 @@ export function AuthProvider({ children }) {
     signup,
     login,
     loginWithGoogle,
-    logout
+    logout,
   };
 
   return (
