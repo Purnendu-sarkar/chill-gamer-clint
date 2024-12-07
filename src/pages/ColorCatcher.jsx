@@ -8,8 +8,8 @@ const ColorCatcher = () => {
 
   // Move the target to a random position
   const moveTarget = () => {
-    const top = Math.random() * 90; 
-    const left = Math.random() * 90; 
+    const top = Math.random() * 90;
+    const left = Math.random() * 90;
     setTargetPosition({ top, left });
   };
 
@@ -40,9 +40,7 @@ const ColorCatcher = () => {
   };
 
   return (
-    <div
-      className="relative w-full h-[700px] bg-gradient-to-br from-gray-800 to-black  text-white rounded-xl"
-    >
+    <div className="relative w-full h-[700px] bg-gradient-to-br from-gray-800 to-black  text-white rounded-xl">
       <h1 className="absolute top-4 left-4 text-xl font-bold">
         Score: {score}
       </h1>

@@ -4,6 +4,7 @@ import GameCard from "../../../pages/GameCard";
 import GraphComponent from "../../../pages/GraphComponent";
 import ColorCatcher from "../../../pages/ColorCatcher";
 import GamingGalaxy from "../../../pages/GamingGalaxy";
+import Footer from "./footer/Footer";
 
 const Home = () => {
   const [highestRatedGames, setHighestRatedGames] = useState([]);
@@ -74,8 +75,11 @@ const Home = () => {
       <GamingGalaxy></GamingGalaxy>
       {/* Extra Section 3: Provide A Game */}
       <div className="py-16 px-4 bg-black text-white">
+        <h3 className="text-center text-3xl font-extrabold mb-5">Interactive Game Play</h3>
         <ColorCatcher></ColorCatcher>
       </div>
+
+      <Footer></Footer>
     </div>
   );
 };
