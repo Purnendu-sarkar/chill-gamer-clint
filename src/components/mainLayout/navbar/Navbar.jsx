@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, GamepadIcon, LogOut } from 'lucide-react';
-import { Tooltip } from 'react-tooltip';
-import { useAuth } from '../../../contexts/AuthContext';
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, GamepadIcon, LogOut } from "lucide-react";
+import { Tooltip } from "react-tooltip";
+import { useAuth } from "../../../contexts/AuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -15,22 +16,53 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/');
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
   };
 
+
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
+
+  
+  
+  useEffect(() => {
+    const theme = isDarkTheme ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme); 
+  }, [isDarkTheme]);
+
+  
+  
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setIsDarkTheme(savedTheme === "dark");
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    }
+  }, []);
+
   return (
     <nav className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
+          {/* Logo */}
+          <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center space-x-2">
               <GamepadIcon className="h-8 w-8 text-purple-500" />
               <span className="text-xl font-bold">ChillGamer</span>
             </Link>
           </div>
+          {/* Theme Toggle */}
+          <button
+              onClick={toggleTheme}
+              className="bg-purple-500 text-white btn rounded hover:bg-purple-600"
+            >
+              {isDarkTheme ? "🌙 Dark Mode" : "🌞 Light Mode"}
+            </button>
 
           {/* Desktop Menu */}
           <div className="hidden md:block">

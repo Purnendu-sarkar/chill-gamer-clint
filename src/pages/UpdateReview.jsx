@@ -3,38 +3,39 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const GENRES = [
-   'Action',
-   'Adventure',
-   'RPG',
-   'Strategy',
-   'Sports', 
-   'Simulation',
-   'Puzzle',
-   'Horror',
-   'Fighting',
-   'Racing'
+  "Action",
+  "Adventure",
+  "RPG",
+  "Strategy",
+  "Sports",
+  "Simulation",
+  "Puzzle",
+  "Horror",
+  "Fighting",
+  "Racing",
 ];
 
 const UpdateReview = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    coverImage: '',
-    title: '',
-    description: '',
-    rating: '',
-    year: '',
-    genre: ''
+    coverImage: "",
+    title: "",
+    description: "",
+    rating: "",
+    year: "",
+    genre: "",
+    userEmail: "",
+    userName: "",
   });
   const [loading, setLoading] = useState(false);
-
-  
-
 
   useEffect(() => {
     const fetchReview = async () => {
       try {
-        const response = await fetch(`https://chill-gamer-server-gray.vercel.app/my-reviews/${id}`);
+        const response = await fetch(
+          `https://chill-gamer-server-gray.vercel.app/my-reviews/${id}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch review data");
         }
@@ -47,26 +48,25 @@ const UpdateReview = () => {
     fetchReview();
   }, [id]);
 
-  
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch(`https://chill-gamer-server-gray.vercel.app/reviews/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `https://chill-gamer-server-gray.vercel.app/reviews/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         toast.success("Review updated successfully!");
@@ -86,7 +86,9 @@ const UpdateReview = () => {
       <h1 className="text-3xl font-bold text-center mb-8">Update Review</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Game Cover Image URL</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Game Cover Image URL
+          </label>
           <input
             type="url"
             name="coverImage"
@@ -98,7 +100,9 @@ const UpdateReview = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Game Title</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Game Title
+          </label>
           <input
             type="text"
             name="title"
@@ -110,7 +114,9 @@ const UpdateReview = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Review Description</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Review Description
+          </label>
           <textarea
             name="description"
             rows={4}
@@ -123,7 +129,9 @@ const UpdateReview = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Rating (1-10)</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Rating (1-10)
+            </label>
             <input
               type="number"
               name="rating"
@@ -137,7 +145,9 @@ const UpdateReview = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Release Year</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Release Year
+            </label>
             <input
               type="number"
               name="year"
@@ -151,7 +161,9 @@ const UpdateReview = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Genre</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Genre
+            </label>
             <select
               name="genre"
               required
@@ -167,6 +179,32 @@ const UpdateReview = () => {
               ))}
             </select>
           </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            User Name
+          </label>
+          <input
+            type="text"
+            name="userName"
+            disabled
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-200"
+            value={formData.userName}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            User Email
+          </label>
+          <input
+            type="email"
+            name="userEmail"
+            disabled
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-200"
+            value={formData.userEmail}
+          />
         </div>
 
         <div className="flex justify-end">

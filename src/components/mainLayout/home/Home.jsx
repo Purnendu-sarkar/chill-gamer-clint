@@ -4,7 +4,7 @@ import GameCard from "../../../pages/GameCard";
 import GraphComponent from "../../../pages/GraphComponent";
 import ColorCatcher from "../../../pages/ColorCatcher";
 import GamingGalaxy from "../../../pages/GamingGalaxy";
-import Footer from "./footer/Footer";
+// import Footer from "./footer/Footer";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -90,7 +90,7 @@ const Home = () => {
         <ColorCatcher></ColorCatcher>
       </div>
 
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
   );
 };
