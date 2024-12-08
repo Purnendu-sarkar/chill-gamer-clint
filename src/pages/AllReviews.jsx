@@ -24,7 +24,7 @@ const AllReviews = () => {
   const [filteredGames, setFilteredGames] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/reviews")
+    fetch("https://chill-gamer-server-gray.vercel.app/reviews")
       .then((res) => res.json())
       .then((data) => {
         setGames(data);

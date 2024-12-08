@@ -16,7 +16,7 @@ const ReviewDetails = () => {
   useEffect(() => {
     const fetchReviewDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/reviews/${id}`);
+        const response = await fetch(`https://chill-gamer-server-gray.vercel.app/reviews/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch review details");
         }
@@ -25,7 +25,7 @@ const ReviewDetails = () => {
 
         if (user) {
           const watchlistResponse = await fetch(
-            `http://localhost:5000/check-watchlist/${id}?email=${user.email}`
+            `https://chill-gamer-server-gray.vercel.app/check-watchlist/${id}?email=${user.email}`
           );
           const watchlistData = await watchlistResponse.json();
           setIsInWatchlist(watchlistData.exists);
@@ -64,7 +64,7 @@ const ReviewDetails = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/addToWatchlist", {
+      const response = await fetch("https://chill-gamer-server-gray.vercel.app/addToWatchlist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

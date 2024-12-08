@@ -12,7 +12,9 @@ const MyReviews = () => {
   useEffect(() => {
     const fetchUserReviews = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/my-reviews?email=${user.email}`);
+        const response = await fetch(
+          `https://chill-gamer-server-gray.vercel.app/my-reviews?email=${user.email}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
         }
@@ -38,18 +40,21 @@ const MyReviews = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`http://localhost:5000/reviews/${id}`, {
+          const response = await fetch(`https://chill-gamer-server-gray.vercel.app/reviews/${id}`, {
             method: "DELETE",
           });
           if (!response.ok) {
             throw new Error("Failed to delete review");
           }
-          // toast.success("Review deleted successfully");
           setReviews(reviews.filter((review) => review._id !== id));
           Swal.fire("Deleted!", "Your review has been deleted.", "success");
         } catch (error) {
           toast.error("Failed to delete review");
-          Swal.fire("Error!", "Something went wrong. Try again later.", "error");
+          Swal.fire(
+            "Error!",
+            "Something went wrong. Try again later.",
+            "error"
+          );
         }
       }
     });
@@ -64,18 +69,22 @@ const MyReviews = () => {
         <table className="w-full border-collapse border border-gray-200">
           <thead>
             <tr className="bg-gray-100">
+              <th className="border p-2 text-center"></th>
               <th className="border p-2">Title</th>
               <th className="border p-2">Genre</th>
               <th className="border p-2">Rating</th>
+              <th className="border p-2">Year</th>
               <th className="border p-2">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {reviews.map((review) => (
+            {reviews.map((review, index) => (
               <tr key={review._id} className="border-t">
+                <td className="border p-2 text-center">{index + 1}</td>
                 <td className="border p-2">{review.title}</td>
                 <td className="border p-2">{review.genre}</td>
                 <td className="border p-2">{review.rating}</td>
+                <td className="border p-2">{review.year}</td>
                 <td className="border p-2 space-x-5 items-center">
                   <button
                     onClick={() => navigate(`/reviews/${review._id}`)}
@@ -100,4 +109,3 @@ const MyReviews = () => {
 };
 
 export default MyReviews;
-

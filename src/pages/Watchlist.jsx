@@ -10,7 +10,7 @@ const Watchlist = () => {
     const fetchWatchlist = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/myWatchlist?email=${user.email}`
+          `https://chill-gamer-server-gray.vercel.app/myWatchlist?email=${user.email}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch watchlist");
@@ -44,6 +44,7 @@ const Watchlist = () => {
         <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
           <thead>
             <tr className="bg-gray-200 text-left">
+              <th className="p-4 border-b text-center"></th>
               <th className="p-4 border-b">Title</th>
               <th className="p-4 border-b">Genre</th>
               <th className="p-4 border-b">Rating</th>
@@ -51,8 +52,9 @@ const Watchlist = () => {
             </tr>
           </thead>
           <tbody>
-            {watchlist.map((item) => (
+            {watchlist.map((item, index) => (
               <tr key={item._id} className="border-b hover:bg-gray-50">
+                <td className="p-4 text-center">{index + 1}</td>
                 <td className="p-4">{item.title}</td>
                 <td className="p-4">{item.genre}</td>
                 <td className="p-4">{item.rating}</td>

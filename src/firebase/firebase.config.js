@@ -18,12 +18,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 
-try {
-    const app = initializeApp(firebaseConfig);
-    console.log("Firebase initialized successfully");
-  } catch (error) {
-    console.error("Firebase initialization error:", error);
-  }
+// try {
+//     const app = initializeApp(firebaseConfig);
+//     console.log("Firebase initialized successfully");
+//   } catch (error) {
+//     console.error("Firebase initialization error:", error);
+//   }
   
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);

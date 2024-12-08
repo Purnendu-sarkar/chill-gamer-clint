@@ -6,7 +6,7 @@ const GamingGalaxy = () => {
     useEffect(() => {
         const fetchAllGames = async () => {
           try {
-            const response = await fetch("http://localhost:5000/reviews");
+            const response = await fetch("https://chill-gamer-server-gray.vercel.app/reviews");
             if (!response.ok) {
               throw new Error("Failed to fetch all games");
             }

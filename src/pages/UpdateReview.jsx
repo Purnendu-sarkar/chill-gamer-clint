@@ -34,7 +34,7 @@ const UpdateReview = () => {
   useEffect(() => {
     const fetchReview = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/my-reviews/${id}`);
+        const response = await fetch(`https://chill-gamer-server-gray.vercel.app/my-reviews/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch review data");
         }
@@ -55,12 +55,12 @@ const UpdateReview = () => {
   };
 
   
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/reviews/${id}`, {
+      const response = await fetch(`https://chill-gamer-server-gray.vercel.app/reviews/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

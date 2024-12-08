@@ -53,7 +53,7 @@ const router = createBrowserRouter([
         element: <ReviewDetails></ReviewDetails>,
         loader: async ({ params }) => {
           const response = await fetch(
-            `http://localhost:5000/reviews/${params.id}`
+            `https://chill-gamer-server-gray.vercel.app/reviews/${params.id}`
           );
           if (!response.ok) {
             throw new Error("Failed to fetch review details");

@@ -44,7 +44,7 @@ const AddReview = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/add-review', {
+      const response = await fetch('https://chill-gamer-server-gray.vercel.app/add-review', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
