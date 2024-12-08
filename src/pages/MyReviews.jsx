@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyReviews = () => {
   const { user } = useAuth();
@@ -26,22 +27,32 @@ const MyReviews = () => {
   }, [user.email]);
 
   const handleDelete = async (id) => {
-    console.log("Paici", id)
-    const confirm = window.confirm("Are you sure you want to delete this review?");
-    if (!confirm) return;
-
-    try {
-      const response = await fetch(`http://localhost:5000/reviews/${id}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete review");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`http://localhost:5000/reviews/${id}`, {
+            method: "DELETE",
+          });
+          if (!response.ok) {
+            throw new Error("Failed to delete review");
+          }
+          // toast.success("Review deleted successfully");
+          setReviews(reviews.filter((review) => review._id !== id));
+          Swal.fire("Deleted!", "Your review has been deleted.", "success");
+        } catch (error) {
+          toast.error("Failed to delete review");
+          Swal.fire("Error!", "Something went wrong. Try again later.", "error");
+        }
       }
-      toast.success("Review deleted successfully");
-      setReviews(reviews.filter((review) => review._id !== id));
-    } catch (error) {
-      toast.error("Failed to delete review");
-    }
+    });
   };
 
   return (
@@ -89,3 +100,4 @@ const MyReviews = () => {
 };
 
 export default MyReviews;
+

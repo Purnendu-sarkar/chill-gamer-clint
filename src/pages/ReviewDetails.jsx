@@ -5,14 +5,13 @@ import { Star, Clock, GamepadIcon, Heart } from "lucide-react";
 import toast from "react-hot-toast";
 
 const ReviewDetails = () => {
-  
   const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [review, setReview] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isInWatchlist, setIsInWatchlist] = useState(false);
-  // console.log(review)
+  // console.log(review);
 
   useEffect(() => {
     const fetchReviewDetails = async () => {
@@ -156,14 +155,8 @@ const ReviewDetails = () => {
 
           <div className="border-t pt-4">
             <div className="flex items-center space-x-3">
-              <img
-                src={review.userPhotoURL}
-                // src={console.log(review.photoURL)}
-                alt={review.userName}
-                className="h-10 w-10 rounded-full"
-              />
+              <h4 className="font-extrabold text-2xl mr-5">owner</h4>
               <div>
-                
                 <p className="font-semibold">{review.userName}</p>
                 <p className="text-sm text-gray-500">{review.userEmail}</p>
               </div>
