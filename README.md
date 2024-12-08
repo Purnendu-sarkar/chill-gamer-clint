@@ -21,7 +21,7 @@ The goal of this project is to create an interactive experience where users can 
 - Sort & Filter Reviews: Sort reviews based on rating or year, and filter by genres.
 - Add to Watchlist: Users can add reviews to their personal watchlist.
 - Loading Spinner: A spinner is displayed while data is loading.
-<!-- - Dark/Light Theme Toggle: Users can switch between dark and light themes. -->
+- Dark/Light Theme Toggle: Users can switch between dark and light themes.
 
 
 
