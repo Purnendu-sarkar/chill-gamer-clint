@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import GameCard from "./GameCard";
+import { motion } from "framer-motion";
 
 const GENRES = [
   "All",
@@ -19,18 +20,21 @@ const GENRES = [
 const AllReviews = () => {
   const [sortBy, setSortBy] = useState("rating");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [loading, setLoading] = useState(true);
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [games, setGames] = useState([]);
   const [filteredGames, setFilteredGames] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     fetch("https://chill-gamer-server-gray.vercel.app/reviews")
       .then((res) => res.json())
       .then((data) => {
         setGames(data);
         setFilteredGames(data);
       })
-      .catch((err) => console.error("Error fetching reviews:", err));
+      .catch((err) => console.error("Error fetching reviews:", err))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleSortChange = (e) => {
@@ -49,14 +53,12 @@ const AllReviews = () => {
   useEffect(() => {
     let updatedGames = [...games];
 
-    
     if (selectedGenre !== "All") {
       updatedGames = updatedGames.filter(
         (game) => game.genre === selectedGenre
       );
     }
 
-    
     updatedGames.sort((a, b) => {
       if (sortBy === "rating") {
         return sortOrder === "asc" ? a.rating - b.rating : b.rating - a.rating;
@@ -68,6 +70,11 @@ const AllReviews = () => {
 
     setFilteredGames(updatedGames);
   }, [sortBy, sortOrder, selectedGenre, games]);
+
+  const cardVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0 },
+  };
 
   return (
     <div className="max-w-7xl mx-auto py-12 px-4">
@@ -108,7 +115,13 @@ const AllReviews = () => {
           </div>
         </div>
       </div>
-      {filteredGames.length === 0 ? (
+      {loading ? (
+        <div className="text-center py-12">
+          <span className="loading loading-bars loading-lg"></span>
+          <span className="loading loading-bars loading-lg"></span>
+          <span className="loading loading-bars loading-lg"></span>
+        </div>
+      ) : filteredGames.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-gray-500">
             No reviews found. Be the first to add one!
@@ -116,8 +129,19 @@ const AllReviews = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredGames.map((game) => (
-            <GameCard key={game._id} game={game} />
+          {filteredGames.map((game, index) => (
+            <motion.div
+              key={game._id}
+              initial="hidden"
+              animate="visible"
+              variants={cardVariants}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,
+              }}
+            >
+              <GameCard game={game} />
+            </motion.div>
           ))}
         </div>
       )}

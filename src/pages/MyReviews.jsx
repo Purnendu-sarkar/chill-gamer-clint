@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
 
 const MyReviews = () => {
   const { user } = useAuth();
@@ -64,7 +65,31 @@ const MyReviews = () => {
     <div className="max-w-4xl mx-auto py-12">
       <h1 className="text-2xl font-bold mb-6">My Reviews</h1>
       {reviews.length === 0 ? (
-        <p className="text-gray-500">No reviews added yet</p>
+        // <p className="text-gray-500">No reviews added yet</p>
+        <div className="h-96 flex flex-col items-center justify-center bg-gradient-to-r from-red-400 via-pink-500 to-purple-500 text-white">
+          {/* Error Message */}
+          <motion.p
+            className="text-2xl mb-12 text-center"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            No reviews added yet.
+          </motion.p>
+
+          {/* Back to Home Button with Animation */}
+          <motion.button
+            className="px-6 py-3 bg-white text-pink-500 font-semibold rounded-full shadow-lg hover:bg-pink-100"
+            onClick={() => navigate("/add-review")}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            Back to Add Review
+          </motion.button>
+        </div>
       ) : (
         <table className="w-full border-collapse border border-gray-200">
           <thead>

@@ -43,11 +43,6 @@ const router = createBrowserRouter([
         path: "/reviews",
         element: <AllReviews></AllReviews>,
       },
-      // {
-      //     path: "/review/:id",
-      //     element: <ReviewDetails></ReviewDetails>,
-
-      // },
       {
         path: "/review/:id",
         element: <ReviewDetails></ReviewDetails>,

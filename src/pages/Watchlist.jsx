@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Watchlist = () => {
   const { user } = useAuth();
   const [watchlist, setWatchlist] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchWatchlist = async () => {
@@ -64,7 +67,31 @@ const Watchlist = () => {
           </tbody>
         </table>
       ) : (
-        <p className="text-gray-500">No items in your watchlist</p>
+        // <p className="text-gray-500">No items in your watchlist.</p>
+        <div className="h-96 flex flex-col items-center justify-center bg-gradient-to-r from-red-400 via-pink-500 to-purple-500 text-white">
+          {/* Error Message */}
+          <motion.p
+            className="text-2xl mb-12 text-center"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            No items in your watchlist.
+          </motion.p>
+
+          {/* Back to Home Button with Animation */}
+          <motion.button
+            className="px-6 py-3 bg-white text-pink-500 font-semibold rounded-full shadow-lg hover:bg-pink-100"
+            onClick={() => navigate("/")}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            Back to Home
+          </motion.button>
+        </div>
       )}
     </div>
   );

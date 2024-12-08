@@ -4,8 +4,8 @@ import GameCard from "../../../pages/GameCard";
 import GraphComponent from "../../../pages/GraphComponent";
 import ColorCatcher from "../../../pages/ColorCatcher";
 import GamingGalaxy from "../../../pages/GamingGalaxy";
-// import Footer from "./footer/Footer";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const [highestRatedGames, setHighestRatedGames] = useState([]);
@@ -47,6 +47,12 @@ const Home = () => {
     fetchHighestRatedGames();
   }, []);
 
+  
+  const cardVariants = {
+    hidden: { opacity: 0, x: 50 }, 
+    visible: { opacity: 1, x: 0 },
+  };
+
   return (
     <div>
       <Banner></Banner>
@@ -58,8 +64,19 @@ const Home = () => {
             Highest Rated Games
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {highestRatedGames.map((game) => (
-              <GameCard key={game._id} game={game} />
+            {highestRatedGames.map((game, index) => (
+              <motion.div
+                key={game._id}
+                initial="hidden"
+                animate="visible"
+                variants={cardVariants}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                }}
+              >
+                <GameCard game={game} />
+              </motion.div>
             ))}
           </div>
           <div className="flex items-center justify-center mt-8">
@@ -67,7 +84,7 @@ const Home = () => {
               to={"/reviews"}
               className="inline-block bg-blue-500 text-white px-4 py-2 rounded-md shadow-md"
             >
-              Explore Details
+              Explore More
             </Link>
           </div>
         </div>
@@ -89,8 +106,6 @@ const Home = () => {
         </h3>
         <ColorCatcher></ColorCatcher>
       </div>
-
-      {/* <Footer></Footer> */}
     </div>
   );
 };

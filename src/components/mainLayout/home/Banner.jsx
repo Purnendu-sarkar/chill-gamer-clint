@@ -20,7 +20,7 @@ const Banner = () => {
         {/* Slide 1 */}
         <div className="relative">
           <img
-            src="https://via.placeholder.com/1200x400/0000FF/FFFFFF?text=ChillGamer+Welcome"
+            src="https://i.ibb.co.com/q1xPYJv/6-1-649307-52.jpg"
             alt="Welcome to ChillGamer"
             className="w-full h-auto object-cover rounded-lg"
           />
@@ -48,7 +48,7 @@ const Banner = () => {
         {/* Slide 2 */}
         <div className="relative">
           <img
-            src="https://via.placeholder.com/1200x400/008000/FFFFFF?text=Latest+Reviews"
+            src="https://i.ibb.co.com/LPR19pS/images-q-tbn-ANd9-Gc-Qw-Bo-Mko-Aemf-Uo-JOg-EPn-JTx-KBFyw2-U2-Bi-Ss4g-s.jpg"
             alt="Latest Reviews"
             className="w-full h-auto object-cover rounded-lg"
           />
