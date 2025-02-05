@@ -1,5 +1,7 @@
 # Chill Gamer: A Game Review Application
 
+![Chill Gamer Screenshot](https://i.ibb.co.com/Y70BVnjx/Chill-Gamer.png)
+
 ## Description
 Chill Gamer is a user-friendly platform where users can explore, share, and discover game reviews. The application allows users to log in, add reviews, explore existing reviews, and manage their game watchlist. It also includes user authentication, review management, and personalized features like adding games to a watchlist.
 
