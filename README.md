@@ -1,6 +1,6 @@
 # Chill Gamer: A Game Review Application
 
-![Chill Gamer Screenshot](https://i.ibb.co.com/Y70BVnjx/Chill-Gamer.png)
+
 ![Chill Gamer Screenshot](https://i.ibb.co.com/Y70BVnjx/Chill-Gamer.png)
 
 ## Description
